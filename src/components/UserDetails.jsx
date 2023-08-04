@@ -10,6 +10,7 @@ const UserDetails = () => {
   const addNewUsers = (name) => {
     console.log(name);
     dispatch(addUser(name));
+    //this "name" can be accessed inside adduser reducer by action.payload not by action.name
   };
   return (
     <Wrapper>

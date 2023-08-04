@@ -1,0 +1,80 @@
+useDispatch,useSelector, provider from react-redux
+createSlice, cofigureStore frof redux toolkit
+data store se chahiye tho useSelector
+Action creators and reducers are two fundamental concepts in Redux, a popular state management library for JavaScript applications. They work together to manage and update the state of an application.
+
+1. Action Creator:
+An action creator is a function that creates and returns an action object. In Redux, an action is a plain JavaScript object that represents an event or an intention to change the application's state. An action typically has a `type` property that describes the type of action being performed and may contain additional data (payload) that is relevant to the action.
+
+Here's an example of an action creator in Redux:
+
+```javascript
+// Action creator
+const incrementCounter = (amount) => {
+  return {
+    type: 'INCREMENT',
+    payload: amount,
+  };
+};
+```
+
+In this example, the `incrementCounter` action creator creates an action with the type `'INCREMENT'` and a `payload` property that holds the amount to be incremented in the state.
+
+2. Reducer:
+A reducer is a function responsible for handling actions and updating the state based on those actions. It takes in the current state and an action as arguments and returns a new state object. Redux follows a unidirectional data flow, so reducers are pure functions, meaning they do not mutate the original state but create a new state object based on the old state and the action.
+
+Here's an example of a reducer in Redux:
+
+```javascript
+// Reducer
+const counterReducer = (state = 0, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return state + action.payload;
+    default:
+      return state;
+  }
+};
+```
+
+In this example, the `counterReducer` function handles the `'INCREMENT'` action type. When this action is dispatched, the reducer takes the current `state`, adds the `payload` from the action, and returns the new state with the updated counter value.
+
+To bring it all together, Redux relies on these action creators and reducers to manage the state of the application. When you dispatch an action using an action creator, it gets passed to the appropriate reducer, which handles the action and returns the new state. This process allows Redux to maintain a predictable and centralized state management system in your application.
+
+Remember, Redux is just one of many state management solutions, and its usage might differ in different contexts and applications.
+
+
+In Redux Toolkit, the createSlice function automatically generates action creators for each reducer
+In Redux Toolkit, the `createSlice` function not only generates reducers but also automatically creates corresponding action creators for each reducer. This eliminates the need to write action creators manually. The generated action creators have the same names as the reducers and can be accessed directly from the `slice` object returned by `createSlice`.
+
+To get an action creator for a specific reducer, you can use the following pattern:
+
+```javascript
+const userSlice = createSlice({
+  name: "user",
+  initialState: [],
+  reducers: {
+    addUser: (state, action) => {
+      state.push(action.payload);
+    },
+    removeAllUser(state, action) {
+      state.splice(0, state.length);
+    },
+    deleteUser: (state, action) => {
+      state.splice(action.ind, 1);
+    },
+  },
+});
+
+// Accessing the generated action creators
+const { addUser, removeAllUser, deleteUser } = userSlice.actions;
+
+// Usage of action creators
+dispatch(addUser({ name: "John", age: 30 }));
+dispatch(removeAllUser());
+dispatch(deleteUser({ ind: 2 }));
+```
+
+In this example, after creating the `userSlice`, we use object destructuring to get the generated action creators `addUser`, `removeAllUser`, and `deleteUser` from the `userSlice.actions` object. Each action creator corresponds to its respective reducer and can be used with the `dispatch` function to trigger the corresponding actions.
+
+By using Redux Toolkit's `createSlice`, you get both the reducers and their associated action creators, making the process of handling state updates in Redux more efficient and less error-prone.
