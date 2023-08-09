@@ -2,15 +2,18 @@ import React from "react";
 import { DeleteAllUser } from "./DeleteAllUser";
 import styled from "styled-components";
 import { fakeUserData } from "../api/Index";
-import { useDispatch } from "react-redux";
-import { addUser } from "../store/slices/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, fetchName } from "../store/slices/SliceThunk";
+
 import DisplayUser from "./DisplayUser";
 const UserDetails = () => {
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.users);
   const addNewUsers = (name) => {
     console.log(name);
-    dispatch(addUser(name));
+    //dispatch(addUser(name));
     //this "name" can be accessed inside adduser reducer by action.payload not by action.name
+    dispatch(fetchName());
   };
   return (
     <Wrapper>
@@ -18,6 +21,7 @@ const UserDetails = () => {
         <div className="admin-table">
           <div className="admin-subtitle">List of User Details</div>
           <button
+            disabled={data.loading}
             className="btn add-btn"
             onClick={() => addNewUsers(fakeUserData())}
           >

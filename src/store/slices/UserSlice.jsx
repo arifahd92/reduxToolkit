@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 //all the methods are key of userSlice.action
 //copy of store
+//********************************************************** */
+//instead of this file i used SliceThunk.js
 const userSlice = createSlice({
   name: "user",
   initialState: [],

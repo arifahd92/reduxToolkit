@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userSlice from "./slices/UserSlice";
+import userSlice from "./slices/SliceThunk";
 //saare slice laao reducer banao unka
 const store = configureStore({
     reducer: {
