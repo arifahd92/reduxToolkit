@@ -14,9 +14,12 @@ export const fetchName = createAsyncThunk(
         // whaty ever you will return wiil be accessible in action as payload action.payload se access kar sakte ho
     }
 )
+
 const initialState = {
-    name: [], loading: false
+    name: [],
+    loading: false
 }
+
 const userSlice = createSlice({
     name: "user",
     initialState,
@@ -31,11 +34,9 @@ const userSlice = createSlice({
         removeAllUser: (state, action) => {
             alert("remove all")
             // state.name.splice(0, state.name.length)
+
             //immutable way 
-            return {
-                ...state,
-                name: []
-            }
+            return { ...state, name: [] }//
         }
     },//main reducer block ended here now define extra reducer
     extraReducers: {
